@@ -6,6 +6,10 @@ using UnityEngine;
 [RequireComponent (typeof(SpriteRenderer))]
 public class SpriteSort : MonoBehaviour
 {
+	/// <summary>
+	/// You can solve the "z-fighting" problem by increasing the value of zOffset.
+	/// </summary>
+	public static float zOffset = 0.05f;
 
 	[SerializeField]
 	float m_FloorHeight = 0f;
@@ -31,8 +35,9 @@ public class SpriteSort : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (!m_Static) {
+			// Dynamically modify the z - axis depth of the Sprite.
 			m_Transform.position = new Vector3 (m_Transform.position.x, m_Transform.position.y, 
-				m_SpriteRenerer.bounds.min.y + m_FloorHeight * 0.02f);
+				(m_SpriteRenerer.bounds.min.y + m_FloorHeight) * zOffset);
 		}
 	}
 
